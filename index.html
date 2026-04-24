@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pizzeria Amigo</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+<style>
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  background: #0a0a0a;
+  color: white;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 32px;
+  font-weight: 900;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  border-radius: 12px;
+  border: 1px solid #333;
+  background: #111;
+  color: white;
+}
+
+button {
+  margin-top: 20px;
+  padding: 16px;
+  width: 100%;
+  background: #d946ef;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.menu {
+  margin-top: 40px;
+}
+
+.menu-item {
+  padding: 15px;
+  border-bottom: 1px solid #222;
+  cursor: pointer;
+}
+
+.menu-item:hover {
+  background: #111;
+}
+
+.success {
+  text-align: center;
+  margin-top: 40px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>Pizzeria Amigo</h1>
+
+  <div class="menu">
+    <div class="menu-item" onclick="selectDish('Husets Special')">Husets Special - 129kr</div>
+    <div class="menu-item" onclick="selectDish('Mafioso')">Mafioso - 119kr</div>
+    <div class="menu-item" onclick="selectDish('Vesuvio')">Vesuvio - 105kr</div>
+  </div>
+
+  <h2>Beställ</h2>
+
+  <input id="name" placeholder="Namn">
+  <input id="phone" placeholder="Telefon">
+  <input id="dish" placeholder="Maträtt">
+  <input id="quantity" type="number" value="1">
+  <input id="time" type="time">
+  <textarea id="extra" placeholder="Extra önskemål"></textarea>
+
+  <button onclick="sendSMS()">SKICKA BESTÄLLNING</button>
+
+  <div id="success" class="success" style="display:none;">
+    <h2>Tack!</h2>
+    <p>SMS öppnas nu – tryck skicka i din mobil.</p>
+  </div>
+
+</div>
+
+<script>
+function selectDish(name) {
+  document.getElementById("dish").value = name;
+}
+
+function sendSMS() {
+  let name = document.getElementById("name").value;
+  let phone = document.getElementById("phone").value;
+  let dish = document.getElementById("dish").value;
+  let quantity = document.getElementById("quantity").value;
+  let time = document.getElementById("time").value;
+  let extra = document.getElementById("extra").value;
+
+  if (!name || !phone || !dish || !time) {
+    alert("Fyll i alla obligatoriska fält");
+    return;
+  }
+
+  let text = `Hej! Ny beställning:
+Namn: ${name}
+Telefon: ${phone}
+Maträtt: ${dish}
+Antal: ${quantity}
+Tid: ${time}
+Extra: ${extra || 'Inga'}`;
+
+  let isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+  let url = isIOS
+    ? `sms:+46702929024&body=${encodeURIComponent(text)}`
+    : `sms:+46702929024?body=${encodeURIComponent(text)}`;
+
+  window.location.href = url;
+
+  setTimeout(() => {
+    document.getElementById("success").style.display = "block";
+  }, 1000);
+}
+</script>
+
+</body>
+</html>
