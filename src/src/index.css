@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --color-accent: #d946ef;
+}
+
+@layer base {
+  body {
+    @apply antialiased overflow-x-hidden;
+  }
+}
+
+@layer components {
+  .glow-button {
+    @apply px-10 py-5 bg-accent text-white rounded-2xl font-black uppercase text-xs tracking-[0.2em] shadow-[0_0_40px_rgba(217,70,239,0.4)] hover:scale-105 active:scale-95 transition-all;
+  }
+
+  .border-text {
+    -webkit-text-stroke: 1px currentColor;
+  }
+
+  .animate-slow-zoom {
+    animation: slow-zoom 20s infinite alternate linear;
+  }
+}
+
+@keyframes slow-zoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.15); }
+}
+
+::selection {
+  @apply bg-accent text-white;
+}
