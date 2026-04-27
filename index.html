@@ -1,351 +1,230 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Köket Restaurang | Onlinebeställning</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Köket Restaurang</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
 
-    html {
-      scroll-behavior: smooth;
-    }
+<style>
+body {
+  margin:0;
+  font-family: 'Inter', sans-serif;
+  background:#050505;
+  color:white;
+}
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #050505;
-      color: white;
-    }
+header {
+  position:fixed;
+  top:0;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px;
+  background:rgba(0,0,0,0.9);
+  border-bottom:1px solid #222;
+  z-index:100;
+}
 
-    header {
-      position: sticky;
-      top: 0;
-      background: #080808;
-      padding: 18px;
-      border-bottom: 1px solid #222;
-      z-index: 10;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+.logo {
+  font-weight:900;
+  font-size:22px;
+}
+.logo span {
+  color:#d946ef;
+  font-style:italic;
+  text-shadow:0 0 12px #d946ef;
+}
 
-    .logo {
-      font-size: 26px;
-      font-weight: 900;
-      letter-spacing: -1px;
-    }
+.menu-btn {
+  font-size:28px;
+  cursor:pointer;
+}
 
-    .logo span {
-      color: #d946ef;
-      font-style: italic;
-      text-shadow: 0 0 14px #d946ef;
-    }
+.hero {
+  height:100vh;
+  background:url('https://images.unsplash.com/photo-1513104890138-7c749659a591') center/cover;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:20px;
+}
 
-    .hero {
-      padding: 80px 20px;
-      text-align: center;
-      background: radial-gradient(circle at top, rgba(217,70,239,0.25), transparent 45%);
-    }
+.hero h1 {
+  font-size:48px;
+  font-weight:900;
+  line-height:1;
+}
+.hero span {
+  color:#d946ef;
+  text-shadow:0 0 20px #d946ef;
+}
 
-    .hero h1 {
-      font-size: 52px;
-      line-height: 0.95;
-      text-transform: uppercase;
-      font-weight: 900;
-      margin-bottom: 22px;
-    }
+.hero p {
+  color:#bbb;
+  margin:20px 0;
+}
 
-    .hero p {
-      color: #bbb;
-      font-size: 18px;
-      line-height: 1.6;
-      max-width: 600px;
-      margin: 0 auto 30px;
-    }
+.btn {
+  background:#d946ef;
+  border:none;
+  padding:16px;
+  border-radius:30px;
+  color:white;
+  font-weight:900;
+  width:80%;
+  max-width:300px;
+  box-shadow:0 0 20px #d946ef;
+  margin-top:10px;
+}
 
-    .btn {
-      display: inline-block;
-      background: #d946ef;
-      color: white;
-      border: none;
-      border-radius: 18px;
-      padding: 18px 28px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      box-shadow: 0 0 25px rgba(217,70,239,0.55);
-      cursor: pointer;
-      text-decoration: none;
-      width: 100%;
-      max-width: 420px;
-    }
+section {
+  padding:80px 20px;
+}
 
-    section {
-      padding: 70px 20px;
-    }
+h2 {
+  font-size:32px;
+  margin-bottom:20px;
+}
 
-    .section-title {
-      text-align: center;
-      margin-bottom: 35px;
-    }
+.card {
+  background:#111;
+  padding:20px;
+  border-radius:20px;
+  margin-bottom:15px;
+  border:1px solid #222;
+}
 
-    .section-title small {
-      color: #d946ef;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      font-weight: 900;
-    }
+.lunch {
+  border:1px solid #d946ef;
+}
 
-    .section-title h2 {
-      font-size: 38px;
-      margin-top: 10px;
-      text-transform: uppercase;
-    }
+input, select, textarea {
+  width:100%;
+  padding:14px;
+  border-radius:15px;
+  border:1px solid #333;
+  background:#111;
+  color:white;
+  margin-bottom:15px;
+}
 
-    .menu {
-      max-width: 900px;
-      margin: auto;
-      display: grid;
-      gap: 18px;
-    }
-
-    .menu-card {
-      background: #111;
-      border: 1px solid #242424;
-      border-radius: 24px;
-      padding: 22px;
-      cursor: pointer;
-    }
-
-    .menu-card:active {
-      transform: scale(0.98);
-    }
-
-    .menu-card h3 {
-      font-size: 22px;
-      margin-bottom: 8px;
-    }
-
-    .menu-card p {
-      color: #aaa;
-      margin-bottom: 12px;
-    }
-
-    .price {
-      color: #d946ef;
-      font-weight: 900;
-      font-size: 20px;
-    }
-
-    .order-box {
-      max-width: 700px;
-      margin: auto;
-      background: #101010;
-      border: 1px solid #252525;
-      border-radius: 30px;
-      padding: 24px;
-    }
-
-    label {
-      display: block;
-      margin: 18px 0 8px;
-      color: #aaa;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-weight: 900;
-    }
-
-    input, select, textarea {
-      width: 100%;
-      padding: 17px;
-      border-radius: 16px;
-      border: 1px solid #333;
-      background: #181818;
-      color: white;
-      font-size: 16px;
-    }
-
-    textarea {
-      min-height: 90px;
-    }
-
-    .notice {
-      display: none;
-      margin-top: 22px;
-      padding: 18px;
-      border-radius: 18px;
-      background: rgba(217,70,239,0.12);
-      border: 1px solid rgba(217,70,239,0.35);
-      color: #eee;
-      line-height: 1.5;
-      text-align: center;
-    }
-
-    footer {
-      background: #000;
-      border-top: 1px solid #222;
-      padding: 40px 20px;
-      text-align: center;
-      color: #999;
-      line-height: 1.7;
-    }
-
-    @media (min-width: 700px) {
-      .menu {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .hero h1 {
-        font-size: 74px;
-      }
-    }
-  </style>
+footer {
+  text-align:center;
+  padding:40px;
+  color:#777;
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <div class="logo">KÖKET <span>Restaurang</span></div>
-  <a href="#bestall" style="color:#d946ef; font-weight:900; text-decoration:none;">Beställ</a>
+<div class="logo">KÖKET <span>Restaurang</span></div>
+<div class="menu-btn">☰</div>
 </header>
 
-<section class="hero">
-  <h1>Online<br>Beställning</h1>
-  <p>
-    Beställ take away direkt från hemsidan. När du trycker på skicka öppnas SMS-appen med beställningen färdig.
-  </p>
-  <a href="#bestall" class="btn">Beställ nu</a>
+<div class="hero">
+<h1>KÖKET RESTAURANG & <span>PIZZERIA</span></h1>
+<p>God mat i Överkalix. Välkommen till en plats för pizza, dryck och trevlig atmosfär.</p>
+<button class="btn" onclick="scrollToOrder()">BESTÄLL ONLINE</button>
+</div>
+
+<section>
+<h2>OM OSS</h2>
+<p>
+Välkommen till Köket – en plats för pizza, god mat och trevlig atmosfär i hjärtat av Överkalix.
+</p>
 </section>
 
-<section id="meny">
-  <div class="section-title">
-    <small>Meny</small>
-    <h2>Våra rätter</h2>
-  </div>
+<section>
+<h2>MENY</h2>
 
-  <div class="menu">
-    <div class="menu-card" onclick="valjRatt('Husets Special - 129 kr')">
-      <h3>Husets Special</h3>
-      <p>Oxfilé, sparris, bearnaisesås</p>
-      <div class="price">129 kr</div>
-    </div>
+<div class="card">
+<h3>Pizza 1</h3>
+<p>Tomatsås, ost, skinka, ananas</p>
+<b>95:-</b>
+</div>
 
-    <div class="menu-card" onclick="valjRatt('Mafioso - 119 kr')">
-      <h3>Mafioso</h3>
-      <p>Salami, lök, tomater, feferoni</p>
-      <div class="price">119 kr</div>
-    </div>
+<div class="card">
+<h3>Pizza 2</h3>
+<p>Tomatsås, ost, feferoni, kebabkött</p>
+<b>105:-</b>
+</div>
 
-    <div class="menu-card" onclick="valjRatt('Vesuvio - 105 kr')">
-      <h3>Vesuvio</h3>
-      <p>Skinka, ost, tomatsås</p>
-      <div class="price">105 kr</div>
-    </div>
+<div class="card">
+<h3>Kebabtallrik</h3>
+<p>Kebabkött, pommes, sallad</p>
+<b>120:-</b>
+</div>
 
-    <div class="menu-card" onclick="valjRatt('Kebabtallrik - 135 kr')">
-      <h3>Kebabtallrik</h3>
-      <p>Kebabkött, pommes, sallad, sås</p>
-      <div class="price">135 kr</div>
-    </div>
-  </div>
 </section>
 
-<section id="bestall">
-  <div class="section-title">
-    <small>Take away</small>
-    <h2>Beställ här</h2>
-  </div>
+<section>
+<h2>DAGENS LUNCH</h2>
 
-  <div class="order-box">
-    <label>Namn *</label>
-    <input id="namn" type="text" placeholder="Ditt namn">
+<div class="card lunch">
+<h3>Måndag</h3>
+<p>Klassisk bolognese</p>
+</div>
 
-    <label>Telefon *</label>
-    <input id="telefon" type="tel" placeholder="070-000 00 00">
+<div class="card">
+<h3>Tisdag</h3>
+<p>Kycklingsallad</p>
+</div>
 
-    <label>Val av maträtt *</label>
-    <select id="ratt">
-      <option value="">Välj rätt...</option>
-      <option>Husets Special - 129 kr</option>
-      <option>Mafioso - 119 kr</option>
-      <option>Vesuvio - 105 kr</option>
-      <option>Kebabtallrik - 135 kr</option>
-    </select>
+</section>
 
-    <label>Antal</label>
-    <input id="antal" type="number" value="1" min="1">
+<section id="order">
+<h2>ONLINE BESTÄLLNING</h2>
 
-    <label>Önskad hämttid *</label>
-    <input id="tid" type="time">
+<input id="namn" placeholder="Namn">
+<input id="telefon" placeholder="Telefon">
+<select id="ratt">
+<option>Välj rätt</option>
+<option>Pizza 1</option>
+<option>Pizza 2</option>
+</select>
+<input id="antal" value="1">
+<input id="tid" type="time">
+<textarea id="extra" placeholder="Extra önskemål"></textarea>
 
-    <label>Extra önskemål</label>
-    <textarea id="extra" placeholder="T.ex. utan lök, extra sås"></textarea>
+<button class="btn" onclick="sendSMS()">SKICKA BESTÄLLNING</button>
+</section>
 
-    <button class="btn" style="margin-top:22px;" onclick="skickaSMS()">
-      Skicka beställning
-    </button>
-
-    <div id="notice" class="notice">
-      SMS-appen ska öppnas nu. Kom ihåg att trycka “Skicka” i SMS-appen.
-    </div>
-  </div>
+<section>
+<h2>KONTAKT</h2>
+<p>Storgatan 6, Överkalix</p>
+<p>0926-77100</p>
 </section>
 
 <footer>
-  <strong>KÖKET Restaurang</strong><br>
-  Överkalix<br>
-  Beställningar skickas via SMS till restaurangen.
+© 2024 Köket Restaurang
 </footer>
 
 <script>
-  const RESTAURANG_NUMMER = "+46702929024";
+function scrollToOrder(){
+  document.getElementById("order").scrollIntoView({behavior:"smooth"});
+}
 
-  function valjRatt(ratt) {
-    document.getElementById("ratt").value = ratt;
-    document.getElementById("bestall").scrollIntoView({ behavior: "smooth" });
-  }
+function sendSMS(){
+  const namn=document.getElementById("namn").value;
+  const telefon=document.getElementById("telefon").value;
+  const ratt=document.getElementById("ratt").value;
+  const antal=document.getElementById("antal").value;
+  const tid=document.getElementById("tid").value;
 
-  function skickaSMS() {
-    const namn = document.getElementById("namn").value.trim();
-    const telefon = document.getElementById("telefon").value.trim();
-    const ratt = document.getElementById("ratt").value.trim();
-    const antal = document.getElementById("antal").value.trim();
-    const tid = document.getElementById("tid").value.trim();
-    const extra = document.getElementById("extra").value.trim();
+  const text=`Beställning:
+Namn:${namn}
+Tel:${telefon}
+Rätt:${ratt}
+Antal:${antal}
+Tid:${tid}`;
 
-    if (!namn || !telefon || !ratt || !tid) {
-      alert("Fyll i namn, telefon, maträtt och hämttid.");
-      return;
-    }
-
-    const smsText =
-`Hej! Jag vill beställa take away:
-
-Namn: ${namn}
-Telefon: ${telefon}
-Maträtt: ${ratt}
-Antal: ${antal}
-Hämttid: ${tid}
-Extra önskemål: ${extra || "Inga"}`;
-
-    const iphone = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-
-    const smsLank = iphone
-      ? "sms:" + RESTAURANG_NUMMER + "&body=" + encodeURIComponent(smsText)
-      : "sms:" + RESTAURANG_NUMMER + "?body=" + encodeURIComponent(smsText);
-
-    document.getElementById("notice").style.display = "block";
-
-    setTimeout(function() {
-      window.location.href = smsLank;
-    }, 200);
-  }
+  window.location.href=`sms:+46702929024?body=${encodeURIComponent(text)}`;
+}
 </script>
 
 </body>
